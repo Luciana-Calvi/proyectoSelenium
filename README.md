@@ -15,4 +15,6 @@ Bienvenido a mi portafolio de pruebas automatizadas con Selenium Java. Este repo
       🏆 Contribuciones y Contacto
 
   🎯 Objetivo del Proyecto
-El objetivo de este repositorio es demostrar mis habilidades en pruebas automatizadas E2E utilizando Cypress, validando el flujo completo de compra de entradas para partidos de Boca Juniors. Este proyecto forma parte de mi portafolio como QA Manual con conocimientos en automatización.
+  
+      El objetivo de este repositorio es demostrar mis habilidades en pruebas automatizadas E2E utilizando Cypress, validando el flujo completo de compra de entradas para partidos de Boca Juniors. 
+      Este proyecto forma parte de mi portafolio como QA Manual con conocimientos en automatización.
