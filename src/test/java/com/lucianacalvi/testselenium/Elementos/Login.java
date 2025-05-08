@@ -20,7 +20,7 @@ public class Login {
     @FindBy(xpath = "//*[@id='Catalog']/form/input")
     WebElement btnLogin;
 
-    @FindBy(xpath = "//*[@id='message']") // Asegurate de que este xpath sea correcto
+    @FindBy(xpath = "//*[@id='Content']/ul/li") // Asegurate de que este xpath sea correcto
     WebElement mensajeError;
 
     public Login(WebDriver driver) {
