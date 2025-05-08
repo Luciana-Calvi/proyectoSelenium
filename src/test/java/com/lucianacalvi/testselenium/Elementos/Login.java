@@ -8,24 +8,27 @@ import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 
 public class Login {
 
-    @FindBy(XPath = "//*[@id="MenuContent"]/a[2]")
+    @FindBy(xpath = "//*[@id='MenuContent']/a[2]")
     WebElement btnInicioSesion;
 
-    @FindBy(id = "stripes-500530778")
+    @FindBy(name = "username")
     WebElement usernameInput;
 
-    @FindBy(XPath = "//*[@id="Catalog"]/form/p[2]/input[2]")
+    @FindBy(xpath = "//*[@id='Catalog']/form/p[2]/input[2]")
     WebElement contraseniaInput;
 
-    @FindBy(XPath = "//*[@id="Catalog"]/form/input")
+    @FindBy(xpath = "//*[@id='Catalog']/form/input")
     WebElement btnLogin;
+
+    @FindBy(xpath = "//*[@id='message']") // Asegurate de que este xpath sea correcto
+    WebElement mensajeError;
 
     public Login(WebDriver driver) {
         PageFactory.initElements(new AjaxElementLocatorFactory(driver, 20), this);
     }
 
     public void inicioSesion(String username, String password) {
-        btnInicioSesion.click()
+        btnInicioSesion.click();
         usernameInput.sendKeys(username);
         contraseniaInput.sendKeys(password);
         btnLogin.click();
@@ -34,5 +37,4 @@ public class Login {
     public String msjNegativo() {
         return mensajeError.getText();
     }
-
 }
