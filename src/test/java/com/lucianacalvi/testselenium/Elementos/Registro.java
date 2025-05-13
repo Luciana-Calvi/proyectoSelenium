@@ -5,52 +5,59 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.support.ui.Select;
+
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import java.time.Duration;
+
 
 public class Registro {
 
-    @FindBy(xpath = "//*[@id='MenuContent']/a[2]")
+    @FindBy(xpath = "//*[@id='MenuContent']/a[2]") 
     WebElement btnInicioSesion;
 
     @FindBy(xpath = "//*[@id='Catalog']/a")
     WebElement btnRegistro;
 
-    @FindBy(id = "stripes--763959668")
+    @FindBy(name = "username")
     WebElement userId;
 
-    @FindBy(xpath = "//*[@id='Catalog']/form/table[1]/tbody/tr[2]/td[2]/input")
+    @FindBy(name = "password")
     WebElement newPassword;
 
-    @FindBy(xpath = "//*[@id='Catalog']/form/table[1]/tbody/tr[3]/td[2]/input")
+    @FindBy(name = "repeatedPassword")
     WebElement repeatPassword;
 
-    @FindBy(xpath = "//*[@id='Catalog']/form/table[2]/tbody/tr[1]/td[2]/input")
+    @FindBy(name = "account.firstName")
     WebElement firstName;
 
-    @FindBy(xpath = "//*[@id='Catalog']/form/table[2]/tbody/tr[2]/td[2]/input")
+    @FindBy(name = "account.lastName")
     WebElement lastName;
 
-    @FindBy(xpath = "//*[@id='Catalog']/form/table[2]/tbody/tr[3]/td[2]/input")
+    @FindBy(name = "account.email")
     WebElement email;
 
-    @FindBy(xpath = "//*[@id='Catalog']/form/table[2]/tbody/tr[4]/td[2]/input")
+    @FindBy(name = "account.phone")
     WebElement phone;
 
-    @FindBy(xpath = "//*[@id='Catalog']/form/table[2]/tbody/tr[5]/td[2]/input")
+    @FindBy(name = "account.address1")
     WebElement addressUno;
 
-    @FindBy(xpath = "//*[@id='Catalog']/form/table[2]/tbody/tr[6]/td[2]/input")
+    @FindBy(name = "account.address2")
     WebElement addressDos;
 
-    @FindBy(xpath = "//*[@id='Catalog']/form/table[2]/tbody/tr[7]/td[2]/input")
+    @FindBy(name = "account.city")
     WebElement city;
 
-    @FindBy(xpath = "//*[@id='Catalog']/form/table[2]/tbody/tr[8]/td[2]/input")
+    @FindBy(name = "account.state")
     WebElement state;
 
-    @FindBy(xpath = "//*[@id='Catalog']/form/table[2]/tbody/tr[9]/td[2]/input")
+    @FindBy(name = "account.zip")
     WebElement zip;
 
-    @FindBy(xpath = "//*[@id='Catalog']/form/table[2]/tbody/tr[10]/td[2]/input")
+    @FindBy(name = "account.country")
     WebElement country;
 
     @FindBy(xpath = "//*[@id='Catalog']/form/table[3]/tbody/tr[2]/td[2]/select")
@@ -62,35 +69,74 @@ public class Registro {
     @FindBy(xpath = "//*[@id='Catalog']/form/input")
     WebElement saveAccountInformation;
 
-    @FindBy(xpath = "//*[@id='mensajeError']") // Ajustá el XPath según tu HTML
+    @FindBy(xpath = "//*[@id='mensajeError']")
     WebElement mensajeError;
 
+
+    private WebDriver driver;
+
     public Registro(WebDriver driver) {
-        PageFactory.initElements(new AjaxElementLocatorFactory(driver, 20), this);
+    this.driver = driver;  // <-- Esto te resuelve los errores del tipo "cannot find symbol: driver"
+    PageFactory.initElements(new AjaxElementLocatorFactory(driver, 10), this);
     }
 
-    public void formularioRegistro(String id, String password, String nombre, String apellido, String correo, String telefono, String direccionUno, String direccionDos, String ciudad, String estado, String codigoPostal, String pais) {
-        btnInicioSesion.click();
-        btnRegistro.click();
-        userId.sendKeys(id);
-        newPassword.sendKeys(password);
-        repeatPassword.sendKeys(password);
+
+    public void irARegistroDesdeHome() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.elementToBeClickable(btnInicioSesion)).click();
+        wait.until(ExpectedConditions.elementToBeClickable(btnRegistro)).click();
+    }
+
+
+    public void completarDatosCuenta(String id, String password) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.visibilityOf(userId)).sendKeys(id);
+        wait.until(ExpectedConditions.visibilityOf(newPassword)).sendKeys(password);
+        wait.until(ExpectedConditions.visibilityOf(repeatPassword)).sendKeys(password);
+}
+
+    public void completarDatosPersonales(String nombre, String apellido, String correo, String telefono) {
         firstName.sendKeys(nombre);
         lastName.sendKeys(apellido);
         email.sendKeys(correo);
         phone.sendKeys(telefono);
+    }
+
+    public void completarDireccion(String direccionUno, String direccionDos, String ciudad, String estado, String zipCode, String pais) {
         addressUno.sendKeys(direccionUno);
         addressDos.sendKeys(direccionDos);
         city.sendKeys(ciudad);
         state.sendKeys(estado);
-        zip.sendKeys(codigoPostal);
+        zip.sendKeys(zipCode);
         country.sendKeys(pais);
-        favouriteCategory.click();
-        dogs.click();
+    }
+
+    public void seleccionarCategoriaFavorita(String categoriaVisibleText) {
+        new Select(favouriteCategory).selectByVisibleText(categoriaVisibleText);
+    }
+
+    public void enviarFormulario() {
         saveAccountInformation.click();
     }
 
-    public String msjNegativo() {
-        return mensajeError.getText();
+    public String obtenerMensajeDeError() {
+        try {
+            return mensajeError.getText();
+        } catch (NoSuchElementException e) {
+            return "No se encontró el mensaje de error.";
+        }
+    }
+
+    // Método completo para llenar todos los datos del formulario de una sola vez
+    public void completarFormulario(
+        String id, String password, String nombre, String apellido, String correo, String telefono,
+        String direccionUno, String direccionDos, String ciudad, String estado, String zipCode, String pais,
+        String categoria
+    ) {
+        completarDatosCuenta(id, password);
+        completarDatosPersonales(nombre, apellido, correo, telefono);
+        completarDireccion(direccionUno, direccionDos, ciudad, estado, zipCode, pais);
+        seleccionarCategoriaFavorita(categoria);
     }
 }
+

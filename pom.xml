@@ -13,7 +13,7 @@
   </parent>
 
   <groupId>com.luciana.sauce</groupId>
-  <artifactId>sauce-demo</artifactId>
+  <artifactId>proyectoSelenium</artifactId>
   <version>1.0-SNAPSHOT</version>
 
   <dependencies>
@@ -36,28 +36,6 @@
       <scope>test</scope>
     </dependency>
 
-    <!-- TestNG -->
-    <dependency>
-      <groupId>org.testng</groupId>
-      <artifactId>testng</artifactId>
-      <version>7.9.0</version>
-      <scope>test</scope>
-    </dependency>
-
-    <!-- Allure -->
-    <dependency>
-      <groupId>io.qameta.allure</groupId>
-      <artifactId>allure-testng</artifactId>
-      <version>2.24.0</version>
-    </dependency>
-
-    <!-- Apache Commons IO -->
-    <dependency>
-      <groupId>commons-io</groupId>
-      <artifactId>commons-io</artifactId>
-      <version>2.11.0</version>
-    </dependency>
-
     <!-- JUnit 5 -->
     <dependency>
       <groupId>org.junit.jupiter</groupId>
@@ -65,6 +43,13 @@
       <version>5.10.2</version>
       <scope>test</scope>
     </dependency>
+
+    <dependency>
+      <groupId>commons-io</groupId>
+      <artifactId>commons-io</artifactId>
+      <version>2.11.0</version>
+    </dependency>
+
   </dependencies>
 
   <build>
@@ -77,18 +62,17 @@
         <configuration>
           <includes>
             <include>**/*Test.java</include>
-            <include>**/TestLogin.java</include>
           </includes>
           <useModulePath>false</useModulePath>
         </configuration>
       </plugin>
 
-      <!-- Spring Boot Plugin -->
+      <!-- Spring Boot Plugin 
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
         <version>3.2.5</version>
-      </plugin>
+      </plugin>-->
 
       <!-- Allure Plugin -->
       <plugin>
@@ -100,3 +84,4 @@
   </build>
 
 </project>
+
