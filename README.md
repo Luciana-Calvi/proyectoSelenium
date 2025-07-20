@@ -13,8 +13,7 @@
 - [📂 Estructura del Proyecto](#-estructura-del-proyecto)
 - [▶️ Cómo Ejecutar las Pruebas](#️-cómo-ejecutar-las-pruebas)
 - [📸 Capturas de Pantalla / Videos](#-capturas-de-pantalla--videos)
-- [📊 Resumen de Resultados - Cypress](#-resumen-de-resultados---cypress)
-- [🏆 Contribuciones y Contacto](#-contribuciones-y-contacto)
+
 
 
 ## 🎯 Objetivo del Proyecto
@@ -154,8 +153,7 @@
 
 ## 📸 Videos
 
-     ## 📸 Videos
+-[Test Login](https://drive.google.com/file/d/1GmAAGzIsk3Xwl2tVN-WnI-ecYck1OEqe/view?usp=sharing)
 
-[Test Login](https://drive.google.com/file/d/1GmAAGzIsk3Xwl2tVN-WnI-ecYck1OEqe/view?usp=sharing)
-
+-[Test Registro](https://drive.google.com/file/d/1sq7cIRlZnNZ1DpJ1Ot8-aEYJ8x54ZjMu/view?usp=sharing)
 
